@@ -1,0 +1,22 @@
+body{
+  background-color: black;
+}
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  widows: 100%;
+}
+
+.calc-wrapper {
+  margin: auto;
+  margin-top: 5em;
+  width: 400px;
+  height: 600px;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+}
