@@ -159,7 +159,7 @@ class App extends Component {
           parseFloat(this.state.previousNumber) + parseFloat(this.state.input)
       });
       this.setState({ operator: "" });
-      this.setState({ check: "1" });
+      this.setState({ check: "2" });
     } else if (this.state.operator === "subtract") {
       this.setState({
         input:
@@ -170,7 +170,7 @@ class App extends Component {
           parseFloat(this.state.previousNumber) - parseFloat(this.state.input)
       });
       this.setState({ operator: "" });
-      this.setState({ check: "1" });
+      this.setState({ check: "2" });
     } else if (this.state.operator === "multiply") {
       this.setState({
         input:
@@ -181,7 +181,7 @@ class App extends Component {
           parseFloat(this.state.previousNumber) * parseFloat(this.state.input)
       });
       this.setState({ operator: "" });
-      this.setState({ check: "1" });
+      this.setState({ check: "2" });
     } else if (this.state.operator === "divide") {
       this.setState({
         input:
@@ -192,7 +192,7 @@ class App extends Component {
           parseFloat(this.state.previousNumber) / parseFloat(this.state.input)
       });
       this.setState({ operator: "" });
-      this.setState({ check: "1" });
+      this.setState({ check: "2" });
     }
   };
 
@@ -207,7 +207,7 @@ class App extends Component {
             <Button handleClick={this.clearInput}>C</Button>
             <Button handleClick={this.reverse}>+/-</Button>
             <Button handleClick={this.percentage}>%</Button>
-            <Button handleClick={this.power}>^2</Button>
+            <Button handleClick={this.subtract}>-</Button>
           </div>
           <div className="row">
             <Button handleClick={this.addToInput}>7</Button>
@@ -230,7 +230,8 @@ class App extends Component {
           <div className="row">
             <Button handleClick={this.addDecimal}>.</Button>
             <Button handleClick={this.addZeroToInput}>0</Button>
-            <Button handleClick={this.subtract}>-</Button>
+       
+            <Button handleClick={this.power}>^2</Button>
             <EqualsButton handleClick={this.evaluate}>=</EqualsButton>
           </div>
 
