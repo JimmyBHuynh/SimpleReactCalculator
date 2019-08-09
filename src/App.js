@@ -69,8 +69,8 @@ class App extends Component {
       this.setState({ check: "1" });
     } else if (this.state.operator !== "") {
       this.evaluate();
-      this.setState({ input: "" });
       this.setState({ operator: "plus" });
+      this.setState({ check: "1" });
     } else {
       this.setState({ previousNumber: this.state.input });
       this.setState({ input: "" });
@@ -92,8 +92,8 @@ class App extends Component {
       this.setState({ check: "1" });
     } else if (this.state.operator !== "") {
       this.evaluate();
-      this.setState({ input: "" });
       this.setState({ operator: "subtract" });
+      this.setState({ check: "1" });
     } else {
       this.setState({ previousNumber: this.state.input });
       this.setState({ input: "" });
@@ -115,8 +115,8 @@ class App extends Component {
       this.setState({ check: "1" });
     } else if (this.state.operator !== "") {
       this.evaluate();
-      this.setState({ input: "" });
       this.setState({ operator: "multiply" });
+      this.setState({ check: "1" });
     } else {
       this.setState({ previousNumber: this.state.input });
       this.setState({ input: "" });
@@ -138,8 +138,8 @@ class App extends Component {
       this.setState({ check: "1" });
     } else if (this.state.operator !== "") {
       this.evaluate();
-      this.setState({ input: "" });
       this.setState({ operator: "divide" });
+      this.setState({ check: "1" });
     } else {
       this.setState({ previousNumber: this.state.input });
       this.setState({ input: "" });
@@ -159,6 +159,7 @@ class App extends Component {
           parseFloat(this.state.previousNumber) + parseFloat(this.state.input)
       });
       this.setState({ operator: "" });
+      this.setState({ check: "1" });
     } else if (this.state.operator === "subtract") {
       this.setState({
         input:
@@ -169,6 +170,7 @@ class App extends Component {
           parseFloat(this.state.previousNumber) - parseFloat(this.state.input)
       });
       this.setState({ operator: "" });
+      this.setState({ check: "1" });
     } else if (this.state.operator === "multiply") {
       this.setState({
         input:
@@ -179,6 +181,7 @@ class App extends Component {
           parseFloat(this.state.previousNumber) * parseFloat(this.state.input)
       });
       this.setState({ operator: "" });
+      this.setState({ check: "1" });
     } else if (this.state.operator === "divide") {
       this.setState({
         input:
@@ -189,6 +192,7 @@ class App extends Component {
           parseFloat(this.state.previousNumber) / parseFloat(this.state.input)
       });
       this.setState({ operator: "" });
+      this.setState({ check: "1" });
     }
   };
 
