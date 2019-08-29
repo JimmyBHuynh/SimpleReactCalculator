@@ -2,9 +2,22 @@ import React, { Component } from "react";
 import "./App.css";
 import { Button } from "./components/Button";
 import Input from "./components/Input";
-import EqualsButton from "./components/EqualsButton";
 
 class App extends Component {
+  operators = {
+    "+": function(a, b) {
+      return a + b;
+    },
+    "*": function(a, b) {
+      return a * b;
+    },
+    "/": function(a, b) {
+      return a / b;
+    },
+    "-": function(a, b) {
+      return a - b;
+    }
+  };
   constructor(props) {
     super(props);
 
@@ -12,8 +25,11 @@ class App extends Component {
       input: "", //What is use to show on screen
       previousNumber: "", //save previous number
       operator: "", //check which operator has been pushed
-      check: "" //check if the same operator has already been pushed so it doesn't read it multiple times.
+      check: "", //check if the same operator has already been pushed so it doesn't read it multiple times.
+      message: ""
     };
+    this.handleEnter = this.handleEnter.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   addToInput = val => {
@@ -28,12 +44,6 @@ class App extends Component {
 
   addDecimal = val => {
     if (this.state.input.indexOf(".") === -1) {
-      this.setState({ input: this.state.input + val });
-    }
-  };
-
-  addZeroToInput = val => {
-    if (this.state.input !== "") {
       this.setState({ input: this.state.input + val });
     }
   };
@@ -55,147 +65,101 @@ class App extends Component {
     this.setState({ input: this.state.input / 100 });
     this.setState({ check: "" });
   };
+
   add = () => {
-    if (this.state.input === "" || this.state.check === "1") {
-    } else if (this.state.operator === "plus") {
-      this.setState({
-        input:
-          parseFloat(this.state.previousNumber) + parseFloat(this.state.input)
-      });
-      this.setState({
-        previousNumber:
-          parseFloat(this.state.previousNumber) + parseFloat(this.state.input)
-      });
-      this.setState({ check: "1" });
-    } else if (this.state.operator !== "") {
-      this.evaluate();
-      this.setState({ operator: "plus" });
-      this.setState({ check: "1" });
-    } else {
-      this.setState({ previousNumber: this.state.input });
-      this.setState({ input: "" });
-      this.setState({ operator: "plus" });
-    }
+    this.calculation("+");
   };
 
   subtract = () => {
-    if (this.state.input === "" || this.state.check === "1") {
-    } else if (this.state.operator === "subtract") {
-      this.setState({
-        input:
-          parseFloat(this.state.previousNumber) - parseFloat(this.state.input)
-      });
-      this.setState({
-        previousNumber:
-          parseFloat(this.state.previousNumber) - parseFloat(this.state.input)
-      });
-      this.setState({ check: "1" });
-    } else if (this.state.operator !== "") {
-      this.evaluate();
-      this.setState({ operator: "subtract" });
-      this.setState({ check: "1" });
-    } else {
-      this.setState({ previousNumber: this.state.input });
-      this.setState({ input: "" });
-      this.setState({ operator: "subtract" });
-    }
+    this.calculation("-");
   };
 
   multiply = () => {
-    if (this.state.input === "" || this.state.check === "1") {
-    } else if (this.state.operator === "multiply") {
-      this.setState({
-        input:
-          parseFloat(this.state.previousNumber) * parseFloat(this.state.input)
-      });
-      this.setState({
-        previousNumber:
-          parseFloat(this.state.previousNumber) * parseFloat(this.state.input)
-      });
-      this.setState({ check: "1" });
-    } else if (this.state.operator !== "") {
-      this.evaluate();
-      this.setState({ operator: "multiply" });
-      this.setState({ check: "1" });
-    } else {
-      this.setState({ previousNumber: this.state.input });
-      this.setState({ input: "" });
-      this.setState({ operator: "multiply" });
-    }
+    this.calculation("*");
   };
 
   divide = () => {
+    this.calculation("/");
+  };
+
+  calculation(name) {
     if (this.state.input === "" || this.state.check === "1") {
-    } else if (this.state.operator === "divide") {
+    } else if (this.state.operator === name) {
       this.setState({
-        input:
-          parseFloat(this.state.previousNumber) / parseFloat(this.state.input)
+        input: this.operators[name](
+          parseFloat(this.state.previousNumber),
+          parseFloat(this.state.input)
+        )
       });
       this.setState({
-        previousNumber:
-          parseFloat(this.state.previousNumber) / parseFloat(this.state.input)
+        previousNumber: this.operators[name](
+          parseFloat(this.state.previousNumber),
+          parseFloat(this.state.input)
+        )
       });
       this.setState({ check: "1" });
     } else if (this.state.operator !== "") {
       this.evaluate();
-      this.setState({ operator: "divide" });
+      this.setState({ operator: name });
       this.setState({ check: "1" });
     } else {
       this.setState({ previousNumber: this.state.input });
       this.setState({ input: "" });
-      this.setState({ operator: "divide" });
+      this.setState({ operator: name });
     }
-  };
+  }
 
   evaluate = () => {
-    if (this.state.input === "") {
-    } else if (this.state.operator === "plus") {
+    if (this.state.operator === "") {
+    } else if (true) {
       this.setState({
-        input:
-          parseFloat(this.state.previousNumber) + parseFloat(this.state.input)
+        input: this.operators[this.state.operator](
+          parseFloat(this.state.previousNumber),
+          parseFloat(this.state.input)
+        )
       });
       this.setState({
-        previousNumber:
-          parseFloat(this.state.previousNumber) + parseFloat(this.state.input)
-      });
-      this.setState({ operator: "" });
-      this.setState({ check: "2" });
-    } else if (this.state.operator === "subtract") {
-      this.setState({
-        input:
-          parseFloat(this.state.previousNumber) - parseFloat(this.state.input)
-      });
-      this.setState({
-        previousNumber:
-          parseFloat(this.state.previousNumber) - parseFloat(this.state.input)
-      });
-      this.setState({ operator: "" });
-      this.setState({ check: "2" });
-    } else if (this.state.operator === "multiply") {
-      this.setState({
-        input:
-          parseFloat(this.state.previousNumber) * parseFloat(this.state.input)
-      });
-      this.setState({
-        previousNumber:
-          parseFloat(this.state.previousNumber) * parseFloat(this.state.input)
-      });
-      this.setState({ operator: "" });
-      this.setState({ check: "2" });
-    } else if (this.state.operator === "divide") {
-      this.setState({
-        input:
-          parseFloat(this.state.previousNumber) / parseFloat(this.state.input)
-      });
-      this.setState({
-        previousNumber:
-          parseFloat(this.state.previousNumber) / parseFloat(this.state.input)
+        previousNumber: this.operators[this.state.operator](
+          parseFloat(this.state.previousNumber),
+          parseFloat(this.state.input)
+        )
       });
       this.setState({ operator: "" });
       this.setState({ check: "2" });
     }
   };
-
+  //Keypress Listener
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleKeyPress);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyPress);
+  }
+  handleEnter(key) {
+    if (key === "+") {
+      document.getElementById("+").click();
+    } else if (key === "-") {
+      document.getElementById("-").click();
+    } else if (key === "/") {
+      document.getElementById("/").click();
+    } else if (key === "*") {
+      document.getElementById("*").click();
+    } else if (key === ".") {
+      this.addDecimal(key);
+    } else if (key === "^") {
+      this.power(key);
+    } else if (key === "%") {
+      this.percentage(key);
+    } else if (key === "Enter") {
+      this.evaluate(key);
+    } else if (!isNaN(key)) {
+      this.addToInput(key);
+    }
+  }
+  handleKeyPress(event) {
+    const key = event.key;
+    this.handleEnter(key);
+  }
   render() {
     return (
       <div className="App">
@@ -229,12 +193,11 @@ class App extends Component {
           </div>
           <div className="row">
             <Button handleClick={this.addDecimal}>.</Button>
-            <Button handleClick={this.addZeroToInput}>0</Button>
-       
-            <Button handleClick={this.power}>^2</Button>
-            <EqualsButton handleClick={this.evaluate}>=</EqualsButton>
-          </div>
+            <Button handleClick={this.addToInput}>0</Button>
 
+            <Button handleClick={this.power}>^2</Button>
+            <Button handleClick={this.evaluate}>=</Button>
+          </div>
         </div>
       </div>
     );
